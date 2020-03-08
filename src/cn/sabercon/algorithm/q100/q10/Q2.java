@@ -24,10 +24,11 @@ package cn.sabercon.algorithm.q100.q10;
  * @date 2020-03-08
  */
 public class Q2 {
+
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode result = new ListNode(l1.val + l2.val);
         ListNode temp = result;
-        ListNode empty  = new ListNode(0);
+        ListNode empty = new ListNode(0);
         while (l1.next != null || l2.next != null) {
             l1 = l1.next == null ? empty : l1.next;
             l2 = l2.next == null ? empty : l2.next;
