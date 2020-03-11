@@ -1,7 +1,5 @@
 package cn.sabercon.algorithm.q100.q40;
 
-import java.util.LinkedHashMap;
-
 /**
  * Count and Say
  * <p>
