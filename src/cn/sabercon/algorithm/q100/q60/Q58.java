@@ -1,65 +1,41 @@
 package cn.sabercon.algorithm.q100.q60;
 
-import java.util.Stack;
-
 /**
- * Insert Interval
+ * Length of Last Word
  * <p>
- * Given a set of non-overlapping intervals, insert a new interval into the intervals (merge if necessary).
- * You may assume that the intervals were initially sorted according to their start times.
+ * Given a string s consists of upper/lower-case alphabets and empty space characters ' ',
+ * return the length of last word (last word means the last appearing word if we loop from left to right) in the string.
  * <p>
- * Example 1:
- * Input: intervals = [[1,3],[6,9]], newInterval = [2,5]
- * Output: [[1,5],[6,9]]
+ * If the last word does not exist, return 0.
  * <p>
- * Example 2:
- * Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
- * Output: [[1,2],[3,10],[12,16]]
- * Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
+ * Note: A word is defined as a maximal substring consisting of non-space characters only.
  * <p>
- * NOTE: input types have been changed on April 15, 2019. Please reset to default code definition to get new method signature
+ * Example:
+ * Input: "Hello World"
+ * Output: 5
  *
  * @author ywk
  * @date 2020-03-15
  */
 public class Q58 {
 
-    public int[][] insert(int[][] intervals, int[] newInterval) {
-        if (intervals.length == 0) {
-            return new int[][]{newInterval};
-        }
-        boolean inserted = false;
-        Stack<int[]> stack = new Stack<>();
-        for (int[] interval : intervals) {
-            if (inserted) {
-                int[] ints = stack.peek();
-                if (ints[1] >= interval[0]) {
-                    ints[1] = Math.max(ints[1], interval[1]);
-                } else {
-                    stack.push(interval);
+    public int lengthOfLastWord(String s) {
+        char[] chars = s.toCharArray();
+        int length = 0;
+        boolean start = false;
+        for (int i = chars.length - 1; i >= 0; i--) {
+            if (start) {
+                if (chars[i] == ' ') {
+                    break;
                 }
+                length++;
             } else {
-                if (newInterval[0] > interval[1]) {
-                    stack.push(interval);
-                } else if (newInterval[1] < interval[0]) {
-                    stack.push(newInterval);
-                    stack.push(interval);
-                    inserted = true;
-                } else {
-                    newInterval[0] = Math.min(newInterval[0], interval[0]);
-                    newInterval[1] = Math.max(newInterval[1], interval[1]);
-                    stack.push(newInterval);
-                    inserted = true;
+                if (chars[i] != ' ') {
+                    start = true;
+                    length++;
                 }
             }
         }
-        if (!inserted) {
-            stack.push(newInterval);
-        }
-        int[][] result = new int[stack.size()][2];
-        for (int i = result.length - 1; i >= 0; i--) {
-            result[i] = stack.pop();
-        }
-        return result;
+        return length;
     }
 }

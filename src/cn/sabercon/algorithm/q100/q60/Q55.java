@@ -1,64 +1,46 @@
 package cn.sabercon.algorithm.q100.q60;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Spiral Matrix
+ * Jump Game
  * <p>
- * Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
+ * Given an array of non-negative integers, you are initially positioned at the first index of the array.
+ * Each element in the array represents your maximum jump length at that position.
+ * Determine if you are able to reach the last index.
  * <p>
  * Example 1:
- * Input:
- * [
- * [ 1, 2, 3 ],
- * [ 4, 5, 6 ],
- * [ 7, 8, 9 ]
- * ]
- * Output: [1,2,3,6,9,8,7,4,5]
+ * Input: [2,3,1,1,4]
+ * Output: true
+ * Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
  * <p>
  * Example 2:
- * Input:
- * [
- * [1, 2, 3, 4],
- * [5, 6, 7, 8],
- * [9,10,11,12]
- * ]
- * Output: [1,2,3,4,8,12,11,10,9,5,6,7]
+ * Input: [3,2,1,0,4]
+ * Output: false
+ * Explanation: You will always arrive at index 3 no matter what. Its maximum
+ *              jump length is 0, which makes it impossible to reach the last index.
  *
  * @author ywk
  * @date 2020-03-15
  */
 public class Q55 {
 
-    public List<Integer> spiralOrder(int[][] matrix) {
-        if (matrix.length == 0 || matrix[0].length == 0) {
-            return new ArrayList<>();
+    public boolean canJump(int[] nums) {
+        if (nums.length == 1) {
+            return true;
         }
-        return spiral(matrix, 0, matrix.length - 1, 0, matrix[0].length - 1);
+        return canReach(nums, 0, 0);
     }
 
-    private List<Integer> spiral(int[][] matrix, int row1, int row2, int col1, int col2) {
-        ArrayList<Integer> result = new ArrayList<>((row2 - row1) * (col2 - col1));
-        for (int i = col1; i <= col2; i++) {
-            result.add(matrix[row1][i]);
+    private boolean canReach(int[] nums, int begin, int end) {
+        int max = end;
+        for (int i = begin; i <= end; i++) {
+            max = Math.max(max, i + nums[i]);
         }
-        for (int i = row1 + 1; i < row2; i++) {
-            result.add(matrix[i][col2]);
+        if (max == end) {
+            return false;
         }
-        if (row1 != row2) {
-            for (int i = col2; i >= col1; i--) {
-                result.add(matrix[row2][i]);
-            }
+        if (max >= nums.length - 1) {
+            return true;
         }
-        if (col1 != col2) {
-            for (int i = row2 - 1; i > row1; i--) {
-                result.add(matrix[i][col1]);
-            }
-        }
-        if (row2 - row1 >= 2 && col2 - col1 >= 2) {
-            result.addAll(spiral(matrix, row1 + 1, row2 - 1, col1 + 1, col2 - 1));
-        }
-        return result;
+        return canReach(nums, end + 1, max);
     }
 }
