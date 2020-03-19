@@ -1,5 +1,8 @@
 package cn.sabercon.algorithm.q100.q100;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Unique Binary Search Trees
  * <p>
@@ -26,17 +29,21 @@ public class Q96 {
         if (n == 0) {
             return 0;
         }
-        return num(1, n);
+        return num(n, new HashMap<>());
     }
 
-    private int num(int begin, int end) {
-        if (begin >= end) {
+    private int num(int n, Map<Integer, Integer> map) {
+        if (n < 2) {
             return 1;
         }
-        int num = 0;
-        for (int i = begin; i <= end; i++) {
-            num += num(begin, i - 1) * num(i + 1, end);
+        if (map.containsKey(n)) {
+            return map.get(n);
         }
+        int num = 0;
+        for (int i = 1; i <= n; i++) {
+            num += num(i - 1, map) * num(n - i, map);
+        }
+        map.put(n, num);
         return num;
     }
 }
