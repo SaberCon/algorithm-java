@@ -69,7 +69,6 @@ public class Q95 {
 
         TreeNode right;
 
-
         TreeNode(int x) {
             val = x;
         }
