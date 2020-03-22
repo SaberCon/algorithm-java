@@ -1,5 +1,7 @@
 package cn.sabercon.algorithm.q200.q130;
 
+import java.util.BitSet;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -44,20 +46,41 @@ import java.util.List;
 public class Q127 {
 
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        int length = 0;
+        wordList.add(beginWord);
+        boolean[][] transforms = new boolean[wordList.size()][wordList.size()];
         for (int i = 0; i < wordList.size(); i++) {
-            String word = wordList.get(i);
-            if (isTransformable(beginWord, word)) {
-                if (endWord.equals(word)) {
-                    return 2;
-                }
-                int nextLength = ladderLength(word, endWord, wordList);
-                if (nextLength > 0) {
-                    length = length == 0 ? nextLength : Math.min(length, nextLength);
+            for (int j = 0; j < i; j++) {
+                if (isTransformable(wordList.get(j), wordList.get(i))) {
+                    transforms[i][j] = true;
                 }
             }
         }
-        return length == 0 ? 0 : length + 1;
+        int index = wordList.indexOf(endWord);
+        if (index < 0) {
+            return 0;
+        }
+        BitSet bitSet = new BitSet(wordList.size());
+        bitSet.set(index);
+        HashSet<Integer> set = new HashSet<>();
+        set.add(index);
+        int length = 1;
+        while (!set.isEmpty()) {
+            HashSet<Integer> temp = new HashSet<>();
+            for (Integer curIndex : set) {
+                if (transforms[wordList.size() - 1][curIndex]) {
+                    return length + 1;
+                }
+                for (int i = 0; i < wordList.size() - 1; i++) {
+                    if (!bitSet.get(i) && (transforms[i][curIndex] || transforms[curIndex][i])) {
+                        bitSet.set(i);
+                        temp.add(i);
+                    }
+                }
+            }
+            length++;
+            set = temp;
+        }
+        return 0;
     }
 
     public boolean isTransformable(String str1, String str2) {
