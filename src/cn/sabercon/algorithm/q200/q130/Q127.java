@@ -1,7 +1,5 @@
 package cn.sabercon.algorithm.q200.q130;
 
-import com.sun.org.apache.xml.internal.utils.Trie;
-
 import java.util.List;
 
 /**
