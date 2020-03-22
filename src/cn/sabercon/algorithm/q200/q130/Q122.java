@@ -1,7 +1,7 @@
 package cn.sabercon.algorithm.q200.q130;
 
 /**
- * Best Time to Buy and Sell Stock
+ * Best Time to Buy and Sell Stock II
  * <p>
  * Say you have an array for which the ith element is the price of a given stock on day i.
  * <p>
