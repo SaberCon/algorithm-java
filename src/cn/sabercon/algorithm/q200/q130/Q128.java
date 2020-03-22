@@ -1,5 +1,7 @@
 package cn.sabercon.algorithm.q200.q130;
 
+import java.util.HashSet;
+
 /**
  * Longest Consecutive Sequence
  *
@@ -19,6 +21,20 @@ package cn.sabercon.algorithm.q200.q130;
 public class Q128 {
 
     public int longestConsecutive(int[] nums) {
-        return 0;
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
+        int max = 0;
+        for (int num : nums) {
+            if (!set.contains(num - 1)) {
+                int current = 1;
+                while (set.contains(++num)) {
+                    current++;
+                }
+                max = Math.max(max, current);
+            }
+        }
+        return max;
     }
 }
