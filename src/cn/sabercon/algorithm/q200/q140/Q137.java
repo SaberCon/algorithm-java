@@ -24,6 +24,7 @@ package cn.sabercon.algorithm.q200.q140;
 public class Q137 {
 
     public int singleNumber(int[] nums) {
-
+        // todo
+        return 0;
     }
 }
