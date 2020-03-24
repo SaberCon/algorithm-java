@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * Binary Tree Preorder Traversal
+ * Binary Tree Postorder Traversal
  *
- * Given a binary tree, return the preorder traversal of its nodes' values.
+ * Given a binary tree, return the postorder traversal of its nodes' values.
  *
  * Example:
  *
@@ -18,15 +18,15 @@ import java.util.Stack;
  *     /
  *    3
  *
- * Output: [1,2,3]
+ * Output: [3,2,1]
  * Follow up: Recursive solution is trivial, could you do it iteratively?
  *
  * @author ywk
  * @date 2020-03-24
  */
-public class Q144 {
+public class Q145 {
 
-    public List<Integer> preorderTraversal(TreeNode root) {
+    public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         if (root == null) {
             return result;
@@ -35,12 +35,18 @@ public class Q144 {
         stack.push(root);
         while (!stack.isEmpty()) {
             TreeNode node = stack.pop();
-            result.add(node.val);
+            if (node.left == null && node.right == null) {
+                result.add(node.val);
+                continue;
+            }
+            stack.push(node);
             if (node.right != null) {
                 stack.push(node.right);
+                node.right = null;
             }
             if (node.left != null) {
                 stack.push(node.left);
+                node.left = null;
             }
         }
         return result;
