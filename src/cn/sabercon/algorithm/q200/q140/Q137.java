@@ -26,6 +26,7 @@ public class Q137 {
     public int singleNumber(int[] nums) {
         int once = 0;
         int twice = 0;
+        // todo 理解できない
         for (int num : nums) {
             once = ~twice & (once ^ num);
             twice = ~once & (twice ^ num);
