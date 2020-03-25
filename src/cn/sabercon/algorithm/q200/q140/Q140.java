@@ -1,6 +1,7 @@
 package cn.sabercon.algorithm.q200.q140;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Word Break II
@@ -42,50 +43,39 @@ import java.util.*;
  * Output:
  * []
  * <p>
+ *
  * @author ywk
  * @date 2020-03-24
  */
 public class Q140 {
 
     public List<String> wordBreak(String s, List<String> wordDict) {
-        // todo
-        ArrayList<String> result = new ArrayList<>();
-        TreeMap<Integer, Set<String>> map = new TreeMap<>((e1, e2) -> e2 - e1);
-        for (String word : wordDict) {
-            int length = word.length();
-            if (map.containsKey(length)) {
-                map.get(length).add(word);
-            } else {
-                Set<String> set = new HashSet<>();
-                set.add(word);
-                map.put(length, set);
-            }
-        }
-        BitSet bitSet = new BitSet(s.length());
-        match(s, map, bitSet);
-        return result;
+        HashSet<String> set = new HashSet<>(wordDict);
+        return word_Break(s, set, 0, new HashMap<>(s.length()));
     }
 
-    private boolean match(String s, TreeMap<Integer, Set<String>> map, BitSet bitSet) {
-        if (bitSet.get(s.length())) {
-            return false;
+    public List<String> word_Break(String s, Set<String> wordDict, int start, Map<Integer, List<String>> map) {
+        if (map.containsKey(start)) {
+            return map.get(start);
         }
-        for (Map.Entry<Integer, Set<String>> entry : map.entrySet()) {
-            int length = entry.getKey();
-            if (s.length() < length) {
-                continue;
-            }
-            Set<String> set = entry.getValue();
-            if (set.contains(s.substring(0, length))) {
-                if (s.length() == length) {
-                    return true;
-                }
-                if (match(s.substring(length), map, bitSet)) {
-                    return true;
+        LinkedList<String> res = new LinkedList<>();
+        if (start == s.length()) {
+            res.add("");
+        }
+        for (int end = start + 1; end <= s.length(); end++) {
+            if (wordDict.contains(s.substring(start, end))) {
+                List<String> list = word_Break(s, wordDict, end, map);
+                for (String l : list) {
+                    res.add(s.substring(start, end) + (l.equals("") ? "" : " ") + l);
                 }
             }
         }
-        bitSet.set(s.length());
-        return false;
+        map.put(start, res);
+        return res;
+    }
+
+    public static void main(String[] args) {
+        Q140 q140 = new Q140();
+        System.out.println(q140.wordBreak("asdfff", Arrays.asList("asd", "fff")));
     }
 }
