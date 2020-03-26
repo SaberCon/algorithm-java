@@ -49,7 +49,7 @@ public class Q164 {
                 buckets[index].min = Math.min(buckets[index].min, num);
             }
         }
-        int result = bucketSize - 1;
+        int result = buckets[0].max - buckets[0].min;
         int pre = buckets[0].max;
         for (Bucket bucket : buckets) {
             if (bucket != null) {
