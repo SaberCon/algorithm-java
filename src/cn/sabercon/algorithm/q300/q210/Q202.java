@@ -3,7 +3,7 @@ package cn.sabercon.algorithm.q300.q210;
 import java.util.HashSet;
 
 /**
- * HappyNumber
+ * Happy Number
  * <p>
  * Write an algorithm to determine if a number is "happy".
  * <p>
