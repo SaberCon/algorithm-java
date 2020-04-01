@@ -20,6 +20,13 @@ package cn.sabercon.algorithm.q300.q210;
 public class Q201 {
 
     public int rangeBitwiseAnd(int m, int n) {
-        return 0;
+        int zeros = 0;
+        while (n > m) {
+            zeros++;
+            m >>>= 1;
+            n >>>= 1;
+        }
+        //将 0 的个数空出来
+        return m << zeros;
     }
 }
