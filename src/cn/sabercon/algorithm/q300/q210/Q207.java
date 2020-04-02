@@ -1,11 +1,8 @@
 package cn.sabercon.algorithm.q300.q210;
 
-import cn.sabercon.algorithm.q200.q180.Q173;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Course Schedule
