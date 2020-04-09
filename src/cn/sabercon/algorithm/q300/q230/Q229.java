@@ -72,7 +72,7 @@ public class Q229 {
         if (count1 > nums.length / 3) {
             ans.add(candidate1);
         }
-        if (count2 > nums.length / 3) {
+        if (candidate1 != candidate2 && count2 > nums.length / 3) {
             ans.add(candidate2);
         }
         return ans;
