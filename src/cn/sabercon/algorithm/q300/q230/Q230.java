@@ -1,7 +1,5 @@
 package cn.sabercon.algorithm.q300.q230;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * Kth Smallest Element in a BST
  *
