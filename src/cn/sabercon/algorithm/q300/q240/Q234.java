@@ -2,15 +2,15 @@ package cn.sabercon.algorithm.q300.q240;
 
 /**
  * Palindrome Linked List
- *
+ * <p>
  * Given a singly linked list, determine if it is a palindrome.
- *
+ * <p>
  * Example 1:
- *
+ * <p>
  * Input: 1->2
  * Output: false
  * Example 2:
- *
+ * <p>
  * Input: 1->2->2->1
  * Output: true
  * Follow up:
@@ -21,18 +21,19 @@ package cn.sabercon.algorithm.q300.q240;
  */
 public class Q234 {
 
-    public boolean isPalindrome(ListNode head) {
-        if (head == null) {
-            return false;
-        }
-        ListNode tortoise = head;
-        ListNode hare = head;
-        while (hare.next != null && hare.next.next != null) {
-            tortoise = tortoise.next;
-            hare = hare.next.next;
-        }
+    private ListNode frontPointer;
 
-        return false;
+    public boolean isPalindrome(ListNode head) {
+        frontPointer = head;
+        return recursivelyCheck(head);
+    }
+
+    private boolean recursivelyCheck(ListNode currentNode) {
+        if (currentNode == null) return true;
+        if (!recursivelyCheck(currentNode.next)) return false;
+        if (currentNode.val != frontPointer.val) return false;
+        frontPointer = frontPointer.next;
+        return true;
     }
 
     public class ListNode {
