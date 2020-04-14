@@ -31,40 +31,117 @@ public class Q273 {
 
     public String numberToWords(int num) {
         if (num == 0) {
-            return "zero";
+            return "Zero";
         }
-        LinkedList<String> ans = new LinkedList<>();
-        for (int i = 0; num > 0; i++) {
-            num = num % 10;
-            num = num / 10;
+        StringBuilder builder = new StringBuilder();
+        for (int i = 1000000000; i >= 1; i /= 1000) {
+            if (num / i != 0) {
+                builder.append(getFirstAndSecondAndThirdNum(num / i)).append(getThousandNum(i));
+            }
+            num = num % i;
         }
-        return ans.toString();
+        return builder.deleteCharAt(builder.length() - 1).toString();
     }
 
-    private String getNum(int n) {
+    private String getThousandNum(int n) {
+        switch (n) {
+            case 1:
+                return "";
+            case 1000:
+                return "Thousand ";
+            case 1000000:
+                return "Million ";
+            case 1000000000:
+                return "Billion ";
+            default:
+                throw new IllegalStateException("Unexpected value: " + n);
+        }
+    }
+
+    private String getFirstNum(int n) {
         switch (n) {
             case 0:
                 return "";
             case 1:
-                return "One";
+                return "One ";
             case 2:
-                return "Two";
+                return "Two ";
             case 3:
-                return "Three";
+                return "Three ";
             case 4:
-                return "Four";
+                return "Four ";
             case 5:
-                return "Five";
+                return "Five ";
             case 6:
-                return "Six";
+                return "Six ";
             case 7:
-                return "Seven";
+                return "Seven ";
             case 8:
-                return "Eight";
+                return "Eight ";
             case 9:
-                return "Nine";
+                return "Nine ";
             default:
                 throw new IllegalStateException("Unexpected value: " + n);
+        }
+    }
+
+    private String getSecondNum(int n) {
+        switch (n) {
+            case 0:
+                return "";
+            case 2:
+                return "Twenty ";
+            case 3:
+                return "Thirty ";
+            case 4:
+                return "Forty ";
+            case 5:
+                return "Fifty ";
+            case 6:
+                return "Sixty ";
+            case 7:
+                return "Seventy ";
+            case 8:
+                return "Eighty ";
+            case 9:
+                return "Ninety ";
+            default:
+                throw new IllegalStateException("Unexpected value: " + n);
+        }
+    }
+
+    private String getFirstAndSecondNum(int n) {
+        switch (n) {
+            case 10:
+                return "Ten ";
+            case 11:
+                return "Eleven ";
+            case 12:
+                return "Twelve ";
+            case 13:
+                return "Thirteen ";
+            case 14:
+                return "Fourteen ";
+            case 15:
+                return "Fifteen ";
+            case 16:
+                return "Sixteen ";
+            case 17:
+                return "Seventeen ";
+            case 18:
+                return "Eighteen ";
+            case 19:
+                return "Nineteen ";
+            default:
+                return getSecondNum(n / 10) + getFirstNum(n % 10);
+        }
+    }
+
+    private String getFirstAndSecondAndThirdNum(int n) {
+        if (n / 100 != 0) {
+            return getFirstNum(n / 100) + "Hundred " + getFirstAndSecondNum(n % 100);
+        } else {
+            return getFirstAndSecondNum(n);
         }
     }
 }
