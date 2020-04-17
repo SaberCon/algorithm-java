@@ -1,6 +1,5 @@
 package cn.sabercon.algorithm.q300.q300;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,9 +36,6 @@ import java.util.stream.Collectors;
 public class Q297 {
 
     public String serialize(TreeNode root) {
-        if (root == null) {
-            return "";
-        }
         List<Integer> list = new LinkedList<>();
         toList(list, root);
         return list.stream().map(num -> num == null ? "" : String.valueOf(num)).collect(Collectors.joining(","));
@@ -73,6 +69,18 @@ public class Q297 {
         node.left = toTree(list);
         node.right = toTree(list);
         return node;
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.right.left = new TreeNode(4);
+        root.right.right = new TreeNode(5);
+        Q297 q297 = new Q297();
+        System.out.println(q297.serialize(root));
+        System.out.println(Arrays.toString(q297.serialize(root).split(",")));
+        System.out.println(Arrays.toString(",,,a,b,c,,,,".split(",")));
     }
 
     public static class TreeNode {
