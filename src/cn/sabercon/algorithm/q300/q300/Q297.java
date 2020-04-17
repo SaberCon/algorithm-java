@@ -1,5 +1,11 @@
 package cn.sabercon.algorithm.q300.q300;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Serialize and Deserialize Binary Tree
  *
@@ -30,14 +36,43 @@ package cn.sabercon.algorithm.q300.q300;
  */
 public class Q297 {
 
-    // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        return null;
+        if (root == null) {
+            return "";
+        }
+        List<Integer> list = new LinkedList<>();
+        toList(list, root);
+        return list.stream().map(num -> num == null ? "" : String.valueOf(num)).collect(Collectors.joining(","));
     }
 
-    // Decodes your encoded data to tree.
+    private void toList(List<Integer> list, TreeNode node) {
+        if (node == null) {
+            list.add(null);
+            return;
+        }
+        list.add(node.val);
+        toList(list, node.left);
+        toList(list, node.right);
+    }
+
     public TreeNode deserialize(String data) {
-        return null;
+        return toTree(Arrays.stream(data.split(","))
+                .map(s -> "".equals(s) ? null : Integer.parseInt(s))
+                .collect(Collectors.toCollection(LinkedList::new)));
+    }
+
+    private TreeNode toTree(List<Integer> list) {
+        if (list.size() == 0) {
+            return null;
+        }
+        Integer num = list.remove(0);
+        if (num == null) {
+            return null;
+        }
+        TreeNode node = new TreeNode(num);
+        node.left = toTree(list);
+        node.right = toTree(list);
+        return node;
     }
 
     public static class TreeNode {
