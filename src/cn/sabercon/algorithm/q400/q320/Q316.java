@@ -22,6 +22,31 @@ package cn.sabercon.algorithm.q400.q320;
 public class Q316 {
 
     public String removeDuplicateLetters(String s) {
-        return null;
+        int[] counts = new int[26];
+        char[] chars = s.toCharArray();
+        for (char c : chars) {
+            counts[c - 'a']++;
+        }
+        StringBuilder builder = new StringBuilder();
+        boolean[] seens = new boolean[26];
+        for (char c : chars) {
+            counts[c - 'a']--;
+            if (seens[c - 'a']) {
+                continue;
+            }
+            int length = builder.length();
+            for (int i = length - 1; i >= 0; i--) {
+                char ch = builder.charAt(i);
+                if (ch > c && counts[ch - 'a'] > 0) {
+                    builder.deleteCharAt(i);
+                    seens[ch - 'a'] = false;
+                } else {
+                    break;
+                }
+            }
+            builder.append(c);
+            seens[c - 'a'] = true;
+        }
+        return builder.toString();
     }
 }
