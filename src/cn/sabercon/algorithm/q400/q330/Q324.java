@@ -24,7 +24,47 @@ package cn.sabercon.algorithm.q400.q330;
  */
 public class Q324 {
 
-    public void wiggleSort(int[] nums) {
+    public static void wiggleSort(int[] nums) {
+        int middle = nums.length / 2;
+        findMiddle(nums, middle, 0, nums.length - 1);
+        findMiddle(nums, middle / 2, 0, middle - 1);
+        findMiddle(nums, middle + (nums.length - middle) / 2, middle + 1, nums.length - 1);
+        int[] clone = nums.clone();
+        for (int i = 0; i < (nums.length + 1) / 2; i++) {
+            nums[nums.length - i * 2 - 2 + nums.length % 2] = clone[i];
+        }
+        for (int i = (nums.length + 1) / 2; i < nums.length; i++) {
+            nums[nums.length - (i - (nums.length + 1) / 2) * 2 - 1 - nums.length % 2] = clone[i];
+        }
+    }
 
+    private static void findMiddle(int[] nums, int middle, int start, int end) {
+        if (start >= end) {
+            return;
+        }
+        int current = nums[start];
+        int index = start;
+        for (int i = start + 1; i <= end; i++) {
+            if (nums[i] < current) {
+                index++;
+                int temp = nums[index];
+                nums[index] = nums[i];
+                nums[i] = temp;
+            }
+        }
+        int temp = nums[index];
+        nums[index] = nums[start];
+        nums[start] = temp;
+        if (index == middle) {
+            return;
+        }
+        if (index < middle) {
+            findMiddle(nums, middle, index + 1, end);
+        }
+        findMiddle(nums, middle, start, index - 1);
+    }
+
+    public static void main(String[] args) {
+        wiggleSort(new int[]{1,5,1,1,6,4});
     }
 }
