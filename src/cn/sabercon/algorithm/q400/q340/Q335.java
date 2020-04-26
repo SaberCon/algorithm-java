@@ -43,6 +43,7 @@ package cn.sabercon.algorithm.q400.q340;
 public class Q335 {
 
     public boolean isSelfCrossing(int[] x) {
+
         return false;
     }
 }
