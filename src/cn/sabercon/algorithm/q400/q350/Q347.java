@@ -28,7 +28,7 @@ import java.util.PriorityQueue;
  * @author ywk
  * @date 2020-04-27
  */
-public class Q346 {
+public class Q347 {
 
     public int[] topKFrequent(int[] nums, int k) {
         int[] ans = new int[k];
