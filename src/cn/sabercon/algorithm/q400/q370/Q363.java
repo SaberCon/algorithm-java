@@ -19,7 +19,7 @@ package cn.sabercon.algorithm.q400.q370;
  * @author ywk
  * @date 2020-04-28
  */
-public class Q362 {
+public class Q363 {
 
     public int maxSumSubmatrix(int[][] matrix, int k) {
         int row = matrix.length;
@@ -72,7 +72,7 @@ public class Q362 {
     }
 
     public static void main(String[] args) {
-        Q362 q362 = new Q362();
-        System.out.println(q362.maxSumSubmatrix(new int[][]{{2,2,-1}}, 2));
+        Q363 q363 = new Q363();
+        System.out.println(q363.maxSumSubmatrix(new int[][]{{2,2,-1}}, 2));
     }
 }
