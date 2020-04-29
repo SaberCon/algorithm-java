@@ -26,6 +26,7 @@ package cn.sabercon.algorithm.q400.q380;
 public class Q378 {
 
     public int kthSmallest(int[][] matrix, int k) {
+        
         return 0;
     }
 }
