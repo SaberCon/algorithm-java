@@ -1,5 +1,8 @@
 package cn.sabercon.algorithm.q400.q390;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Longest Absolute File Path
  *
@@ -43,7 +46,32 @@ package cn.sabercon.algorithm.q400.q390;
  */
 public class Q388 {
 
-    public int lengthLongestPath(String input) {
-        return 0;
+    public static int lengthLongestPath(String input) {
+        String[] dirs = input.split("\n");
+        ArrayList<Integer> dirLengths = new ArrayList<>();
+        int ans = 0;
+        for (String dir : dirs) {
+            int level = dir.lastIndexOf("\t") + 1;
+            int length = dir.length() - level;
+            if (dir.contains(".")) {
+                for (int i = 0; i < level; i++) {
+                    length += dirLengths.get(i) + 1;
+                }
+                ans = Math.max(ans, length);
+            } else {
+                int size = dirLengths.size();
+                for (int i = size - 1; i >= level; i--) {
+                    dirLengths.remove(i);
+                }
+                dirLengths.add(length);
+            }
+        }
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString("dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext".split("\n")));
+        System.out.println("\t\taaa.txt".length());
+        System.out.println(lengthLongestPath("dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext"));
     }
 }
