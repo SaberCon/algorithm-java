@@ -43,7 +43,6 @@ public class Q392 {
         for (char c : s.toCharArray()) {
             sList.add(c);
         }
-        int length = t.length();
         for (char c : t.toCharArray()) {
             if (sList.getFirst() == c) {
                 sList.removeFirst();
