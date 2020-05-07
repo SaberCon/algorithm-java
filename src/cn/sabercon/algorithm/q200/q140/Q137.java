@@ -24,13 +24,12 @@ package cn.sabercon.algorithm.q200.q140;
 public class Q137 {
 
     public int singleNumber(int[] nums) {
-        int once = 0;
-        int twice = 0;
-        // todo 理解できない
+        int one = 0;
+        int two = 0;
         for (int num : nums) {
-            once = ~twice & (once ^ num);
-            twice = ~once & (twice ^ num);
+            one = ~two & (one ^ num);
+            two = ~one & (two ^ num);
         }
-        return once;
+        return one;
     }
 }
