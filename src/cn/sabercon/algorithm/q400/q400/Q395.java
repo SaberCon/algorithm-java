@@ -34,5 +34,6 @@ public class Q395 {
             return s.length();
         }
         return 0;
+        // todo
     }
 }
