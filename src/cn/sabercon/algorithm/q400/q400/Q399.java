@@ -1,6 +1,10 @@
 package cn.sabercon.algorithm.q400.q400;
 
+import javafx.util.Pair;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 399. Evaluate Division
@@ -25,15 +29,49 @@ import java.util.List;
  *
  * The input is always valid. You may assume that evaluating the queries will result in no division by zero and there is no contradiction.
  *
- * 来源：力扣（LeetCode）
- * 链接：https://leetcode-cn.com/problems/evaluate-division
- * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  * @author SaberCon
  * @date 2020-05-28
  */
 public class Q399 {
 
+    Map<String, Pair<String, Double>> map;
+
     public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
-        return null;
+        map = new HashMap<>();
+        for (int i = 0; i < values.length; i++) {
+            Pair<String, Double> dividend = findSource(new Pair<>(equations.get(i).get(0), 1.0));
+            Pair<String, Double> divisor = findSource(new Pair<>(equations.get(i).get(1), 1.0));
+            if (dividend.getKey().equals(divisor.getKey())) {
+                continue;
+            }
+            map.put(dividend.getKey(), new Pair<>(divisor.getKey(), values[i] * divisor.getValue() / dividend.getValue()));
+        }
+        double[] ans = new double[queries.size()];
+        for (int i = 0; i < ans.length; i++) {
+            if (!map.containsKey(queries.get(i).get(0)) || !map.containsKey(queries.get(i).get(1))) {
+                ans[i] = -1.0;
+                continue;
+            }
+            Pair<String, Double> dividend = findSource(new Pair<>(queries.get(i).get(0), 1.0));
+            Pair<String, Double> divisor = findSource(new Pair<>(queries.get(i).get(1), 1.0));
+            if (dividend.getKey().equals(divisor.getKey())) {
+                ans[i] = dividend.getValue() / divisor.getValue();
+            } else {
+                ans[i] = -1.0;
+            }
+        }
+        return ans;
+    }
+
+    private Pair<String, Double> findSource(Pair<String, Double> pair) {
+        if (!map.containsKey(pair.getKey())) {
+            map.put(pair.getKey(), pair);
+            return pair;
+        }
+        Pair<String, Double> relation = map.get(pair.getKey());
+        if (pair.getKey().equals(relation.getKey())) {
+            return pair;
+        }
+        return findSource(new Pair<>(relation.getKey(), relation.getValue() * pair.getValue()));
     }
 }
