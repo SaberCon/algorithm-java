@@ -32,6 +32,17 @@ package cn.sabercon.algorithm.q400.q400;
 public class Q400 {
 
     public int findNthDigit(int n) {
-        return 0;
+        int level = 1;
+        long num = n;
+        long times = 1;
+        while (num > 9 * level * times) {
+            num -= 9 * level * times;
+            level++;
+            times *= 10;
+        }
+        long pos = (num - 1) % level;
+        num = times + (num - 1) / level;
+        long pow = (long) Math.pow(10, level - pos);
+        return (int) (num % pow / (pow / 10));
     }
 }
