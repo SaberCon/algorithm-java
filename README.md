@@ -1,3 +1,3 @@
-# Algorithm Per Day
+# algorithm-java
 
-This is my plan about solving all the algorithm questions in LeetCode.
+[LeetCode Homepage](https://leetcode-cn.com/u/sabercon)
